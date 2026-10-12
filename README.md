@@ -1,5 +1,7 @@
 # Zotero LinkSync
 
+> **发布暂缓 / Publication on hold**：本仓库当前源码为旧版 0.2.2.6，开发者现用 0.2.2.8。正在核对并更新正确发布版本；请勿将此旧版安装包作为当前推荐版本。
+
 让新导入的 PDF 从创建时就成为链接附件：**Zotero 同步文献数据，坚果云同步 PDF 文件。**
 
 [English](README.en.md) · [安装包 / Releases](https://github.com/kaifeng0922/zotero-linksync/releases) · [使用教程](docs/USAGE.zh-CN.md) · [问题反馈](https://github.com/kaifeng0922/zotero-linksync/issues)
