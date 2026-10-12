@@ -46,7 +46,7 @@ Releases 下载 `.xpi`（不是 Source code.zip）。下载同版本 SHA256SUMS.
 
 直接 PDF 页面：在浏览器打开合法可访问 PDF，使用 Connector，支持符合条件的 PDF 流；不同浏览器/网站行为可能不同。
 
-不要期待普通“添加文件”、已有附件转换、群组或非 PDF 导入也被覆盖。
+0.2.2.8 新增本地独立 PDF 导入 hook：在个人库、源文件位于 Base Directory 和 Zotero Data Directory 外部、无 parentItemID/moveFile/fileBaseName、内容类型符合 PDF、没有特殊 saveOptions 时，可将原生 importFromFile 路径转为新 linked 附件。其他插件调用同一 API 也可能受到影响，组合使用需测试。已有附件转换、群组或非 PDF 导入不在支持目标内。
 
 ## 6. 跨设备验收
 

@@ -24,13 +24,14 @@ const MODULES = [
 	"modules/linkedAttachment.js",
 	"modules/nutstoreStatus.js",
 	"hooks/dropInterceptor.js",
+	"hooks/localPDFImport.js",
 	"hooks/connectorSaveSession.js",
 	"hooks/standaloneEndpoint.js"
 ];
 
 var LinkSync = {
 	pluginID: "zotero-linksync@example.com",
-	version: "0.2.2.6",
+	version: "0.2.2.8",
 	mode: "RC5_DIRECT_PDF_CANDIDATE",
 	productionMode: true,
 	machineRole: "",            // optional label, from pref extensions.zotero.linksync.machineRole
@@ -45,6 +46,7 @@ var LinkSync = {
 	rootURI: null,
 	windows: new Set(),
 	reconcileTimer: null,
+	dragRefreshTimer: null,
 	modules: {}
 };
 
@@ -70,11 +72,11 @@ function runtimeOwners() {
 	let owners = new Set();
 	if (Zotero[LIFECYCLE_SLOT]) owners.add(Zotero[LIFECYCLE_SLOT]);
 	// Recover rc5 orphaned scopes without recapturing wrappers as originals.
-	let functions = [Zotero.Server.Connector.SaveSession.prototype.saveItems,
+	let functions = [Zotero.Attachments.importFromFile,Zotero.Server.Connector.SaveSession.prototype.saveItems,
 		Zotero.Server.Endpoints["/connector/saveStandaloneAttachment"]?.prototype.init,
 		...Zotero.getMainWindows().map(w => w.ZoteroPane?.itemsView?.onDrop)];
 	for (let fn of functions) {
-		if (typeof fn !== "function" || !/processConnectorItem|processStandaloneRequest|pdfBase/.test(String(fn))) continue;
+		if (typeof fn !== "function" || !/processConnectorItem|processStandaloneRequest|pdfBase|localPDFImport/.test(String(fn))) continue;
 		let owner = Components.utils.getGlobalForObject(fn).LinkSync;
 		if (owner?.pluginID === LinkSync.pluginID) owners.add(owner);
 	}
@@ -90,6 +92,7 @@ function restoreState(state) {
 		clearInterval(state.reconcileTimer);
 		state.reconcileTimer = null;
 	}
+	if (state.dragRefreshTimer) { clearInterval(state.dragRefreshTimer); state.dragRefreshTimer = null; }
 	function step(name, action, verify) {
 		trace("RESTORE_" + name + "_BEGIN");
 		try {
@@ -103,6 +106,9 @@ function restoreState(state) {
 			Zotero.logError(error);
 		}
 	}
+	let localImport = modules.localImportRecord;
+	step("LOCAL_IMPORT", () => modules.restoreLocalPDFImport?.(state),
+		() => !localImport || Zotero.Attachments.importFromFile === localImport.original);
 	let endpoint = modules.standaloneEndpointRecord;
 	step("STANDALONE", () => modules.restoreStandaloneEndpoint?.(state),
 		() => !endpoint || endpoint.endpoints[endpoint.path] === endpoint.originalEndpoint);
@@ -218,9 +224,19 @@ async function startWorkflows({ rootURI }) {
 				+ "direct PDF page saves delegate to Zotero native behavior. " + error);
 		}
 		if (stopping) return;
+	LinkSync.modules.installLocalPDFImport(LinkSync);
 	for (let window of Zotero.getMainWindows()) {
 		await onMainWindowLoad({ window });
 	}
+	// ItemTree instances are replaced when library/collection views are rebuilt.
+	LinkSync.dragRefreshTimer = setInterval(() => {
+		if (stopping || !LinkSync.pdfBase) return;
+		for (let window of Zotero.getMainWindows()) {
+			if (window.ZoteroPane?.itemsView?.onDrop) {
+				LinkSync.modules.installDropInterceptor(LinkSync, window).catch(Zotero.logError);
+			}
+		}
+	}, 1000);
 	LinkSync.reconcileTimer = setInterval(() => {
 		LinkSync.modules.reconcileProductionLogs(LinkSync).catch(Zotero.logError);
 	}, 60000);

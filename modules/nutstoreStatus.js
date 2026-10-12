@@ -43,12 +43,9 @@ this.fileTransportState = async function () {
 };
 
 this.maybeNotifyTransportWaiting = function (state, transport) {
-	if (transport?.state !== "WAITING_FOR_NUTSTORE") return;
-	if (state.transportWaitNotified) return;
-	state.transportWaitNotified = true;
-	try {
-		Services.prompt.alert(null, "Zotero LinkSync",
-			"LinkSync: PDF saved locally. Nutstore is not currently syncing.");
-	}
-	catch (error) { Zotero.logError(error); }
+	// 0.2.2.7: Nutstore transport is no longer part of production. The
+	// "Nutstore is not currently syncing" warning has been removed. This
+	// function is retained as a no-op so call sites that also record
+	// file_transport_status (via fileTransportState) are unchanged.
+	return;
 };

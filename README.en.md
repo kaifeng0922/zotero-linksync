@@ -10,7 +10,7 @@ Kai's first small plugin, developed with Codex assistance to solve a personal mu
 
 Switch between home, office and laptop while keeping new PDFs in a dedicated cloud-synced folder. Use Zotero Data Sync for records and a separate service for files, without putting Zotero's data directory in cloud storage.
 
-Supported workflows in editable My Library: plain drag of external local PDFs onto an existing parent or blank item-list area; article-page Connector saves with one primary PDF candidate; compatible direct-PDF Connector stream saves. Success creates linkMode=2 with `attachments:<key>/<filename>` pointing to `PDFs/<key>/<filename>`. Local drag sources are copied, not moved.
+Supported workflows in editable My Library: plain drag of external local PDFs onto an existing parent or blank item-list area; article-page Connector saves with one primary PDF candidate; compatible direct-PDF Connector stream saves; eligible standalone local PDF imports. ItemTree drop hooks are refreshed after view replacement. Success creates linkMode=2 with `attachments:<key>/<filename>` pointing to `PDFs/<key>/<filename>`. Local drag sources are copied, not moved.
 
 ## Setup
 
@@ -22,7 +22,7 @@ Supported workflows in editable My Library: plain drag of external local PDFs on
 
 ## Important limitations
 
-Early release 0.2.2.6 (rc6). Developer acceptance covered macOS, Zotero 10.0.4 and Nutstore classic full-local synchronization, including cross-device linked paths, SHA-256, Reader, restart and Data Sync. Other operating systems, Zotero versions, cloud services and all publisher sites are not comprehensively tested.
+Early release 0.2.2.8, sourced from the developer's currently active installed XPI. The developer reports extended personal use without observed issues. Earlier 0.2.2.6 acceptance covered macOS, Zotero 10.0.4 and Nutstore classic full-local synchronization, including cross-device linked paths, SHA-256, Reader, restart and Data Sync; this does not independently validate the new 0.2.2.8 hooks. Other operating systems, Zotero versions, cloud services and all publisher sites are not comprehensively tested.
 
 - No historical migration, deduplication or missing-file repair. Group libraries and mobile attachment access are not supported targets.
 - Plugin startup temporarily sets the global `downloadAssociatedFiles` preference to false. Normal shutdown/disable/uninstall attempts to restore its original value. Unsupported Connector targets can still be affected by this global preference.

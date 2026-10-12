@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Zotero LinkSync",
-  "version": "0.2.2.6",
-  "description": "Save new PDFs as linked Zotero attachments for an independently synced local folder. Early release for Zotero 10.",
+  "version": "0.2.2.8",
+  "description": "Linked PDF workflows with resilient ItemTree hooks and standalone local PDF import.",
   "author": "Kai",
   "homepage_url": "https://github.com/kaifeng0922/zotero-linksync",
   "applications": {

@@ -22,7 +22,9 @@ this.interceptorRecords = new Map();
 this.installDropInterceptor = async function (state, window) {
 	let view = window.ZoteroPane.itemsView;
 	if (!view || typeof view.onDrop !== "function") throw new Error("Current item tree onDrop is unavailable");
-	if (this.interceptorRecords.has(window)) return;
+	let previous = this.interceptorRecords.get(window);
+	if (previous?.view === view && view.onDrop === previous.wrapped) return;
+	if (previous) this.restoreDropInterceptor(state, window);
 	let originalOnDrop = view.onDrop;
 	if (String(originalOnDrop).includes("pdfBase")) throw new Error("Orphaned LinkSync drag wrapper; refusing recapture");
 	let modules = this;

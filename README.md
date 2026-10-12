@@ -1,7 +1,5 @@
 # Zotero LinkSync
 
-> **发布暂缓 / Publication on hold**：本仓库当前源码为旧版 0.2.2.6，开发者现用 0.2.2.8。正在核对并更新正确发布版本；请勿将此旧版安装包作为当前推荐版本。
-
 让新导入的 PDF 从创建时就成为链接附件：**Zotero 同步文献数据，坚果云同步 PDF 文件。**
 
 [English](README.en.md) · [安装包 / Releases](https://github.com/kaifeng0922/zotero-linksync/releases) · [使用教程](docs/USAGE.zh-CN.md) · [问题反馈](https://github.com/kaifeng0922/zotero-linksync/issues)
@@ -21,12 +19,13 @@
 1. 在“我的文库”中，将外部本地 PDF 普通拖到已有文献或列表空白区域，创建链接附件，保留拖入的原文件。
 2. Connector 保存文章页面时，由 Zotero 创建文献记录，LinkSync 尝试获取一个主 PDF 并创建链接附件。
 3. 从浏览器直接 PDF 页面使用 Connector，支持符合条件的 PDF 流保存。
+4. 符合条件的原生本地独立 PDF 导入也可创建链接附件；导入 hook 的详细边界见教程。切换文库视图后会重新绑定拖放处理。
 
 成功路径：`PDFs/<attachmentKey>/<filename>.pdf`；Zotero 路径为 `attachments:<attachmentKey>/<filename>.pdf`，linkMode=2。保存过程中验证 PDF 文件头、大小和 SHA-256。
 
 ## 先读这个
 
-**早期公开版：0.2.2.6（rc6）**。开发者的 macOS / Zotero 10.0.4 / 坚果云经典完整本地同步环境已完成跨设备、Reader、重启和 Data Sync 验证；后续个人使用稳定由开发者报告。没有全面验证 Windows、Linux、其他云盘、所有出版商或其他 Zotero 版本。
+**早期公开版：0.2.2.8**。源码来自开发者当前启用的安装包，开发者报告长期个人使用未发现问题。此前 0.2.2.6 在 macOS / Zotero 10.0.4 / 坚果云经典完整本地同步环境完成跨设备、Reader、重启和 Data Sync 验证；这些旧版验收不是 0.2.2.8 新增逻辑的独立验收。没有全面验证 Windows、Linux、其他云盘、所有出版商或其他 Zotero 版本。
 
 - 安装前备份 Zotero 数据与附件，用少量可丢弃文件先测试。
 - 每台电脑登录同一 Zotero 账号、同步同一独立云盘文件夹，分别设置本机的 Linked Attachment Base Directory。
