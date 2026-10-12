@@ -4,9 +4,15 @@
 
 先备份 Zotero 数据和 PDF。用少量可以丢弃的测试文件开始；不要先拿整个文献库试验。只用于个人“我的文库”，不要期待群组或手机附件可用。
 
-## 2. 云盘文件夹
+## 2. 独立同步文件夹
 
-在坚果云客户端正式建立独立一级同步文件夹 `ZoteroIncrementalSync`，内部新建 `PDFs`，所有电脑同步同一云端文件夹。不是“我的坚果云”内部一个需要同步整个父目录的子文件夹。
+当前个人使用方案为 Syncthing 同步两台 Mac 的 PDF 文件夹，Tailscale 提供跨网络连接或备用路径。Tailscale 本身不是文件夹同步工具，也不是 LinkSync 的安装前提。此设备间文件同步方案无需购买云盘存储会员，容量受本机磁盘空间限制。
+
+使用文件同步工具建立独立同步文件夹 `ZoteroIncrementalSync`，内部新建 `PDFs`，每台电脑保持一致的相对文件结构。Syncthing 必须单独安装并配置设备配对、文件夹共享和正确的本地路径；LinkSync 不代为配置同步工具。
+
+坚果云是早期已测试方案，现已退出开发者的生产同步链路。如选坚果云，应在客户端注册独立一级同步文件夹；其他云盘仅为待验证方案。不要同步 Zotero 数据目录或 sqlite。
+
+**系统范围：仅完成两台 Mac 的试验；Windows、Linux 尚未验证。**
 
 示例结构（不是必须使用的绝对路径）：
 
@@ -50,7 +56,7 @@ Releases 下载 `.xpi`（不是 Source code.zip）。下载同版本 SHA256SUMS.
 
 ## 6. 跨设备验收
 
-先在 A 导入一份测试文件，确认 `PDFs/<key>/` 中有实体 PDF。分别等待 Zotero 正常 Data Sync 与云盘客户端同步。在 B 正常 Data Sync，等待 PDF 完整下载后从 Zotero Reader 打开同一附件。重启后再次打开。
+先在 A 导入一份测试文件，确认 `PDFs/<key>/` 中有实体 PDF。分别等待 Zotero 正常 Data Sync 与独立文件同步工具同步。在 B 正常 Data Sync，等待 PDF 完整下载后从 Zotero Reader 打开同一附件。重启后再次打开。
 
 高级诊断可比对 item key、linkMode=2、`attachments:` 路径和两台机器 SHA-256。不同机器 item ID 不必相同，item key 应一致。`synced=1` 是数据状态，不代表文件运输完成；插件日志 SYNCED 也不是云端确认。
 
