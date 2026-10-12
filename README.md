@@ -1,10 +1,19 @@
 # Zotero LinkSync
 
-让新导入的 PDF 从创建时就成为链接附件：**Zotero 同步文献数据，坚果云同步 PDF 文件。**
+让新导入的 PDF 从创建时就成为链接附件：**Zotero 同步文献数据，独立文件同步工具同步 PDF。**
 
 [English](README.en.md) · [安装包 / Releases](https://github.com/kaifeng0922/zotero-linksync/releases) · [使用教程](docs/USAGE.zh-CN.md) · [问题反馈](https://github.com/kaifeng0922/zotero-linksync/issues)
 
 这是 Kai 在 Codex 协助下开发的第一个小插件，起点是一个真实需求：在多台电脑间切换阅读 Zotero 文献，只同步新增 PDF，不把整个 Zotero 数据目录放进云盘。第三方社区项目，与 Zotero 官方无隶属关系。
+
+## 当前使用方案与特色
+
+我目前使用 **Syncthing 同步两台 Mac 的 PDF 文件夹，Tailscale 提供跨网络连接或备用路径**；坚果云是早期测试方案，已退出当前生产同步链路。Tailscale 本身不负责文件夹同步，也不是插件的安装前提。
+
+- 不绑定某一家云盘：链接附件保存在独立本地文件夹，文件同步方案可自行选择。
+- 当前设备间同步链路无需购买云盘存储会员；容量仍取决于设备磁盘空间。
+- 坚果云曾用于早期验收；其他提供完整本地文件夹的云盘可作为候选，具体兼容性需测试。
+- **仅完成 macOS 双电脑试验，Windows 尚未完成验证，Linux 亦未验证。** 不承诺全平台兼容。
 
 ## 适合谁？
 
@@ -28,7 +37,7 @@
 **早期公开版：0.2.2.8**。源码来自开发者当前启用的安装包，开发者报告长期个人使用未发现问题。此前 0.2.2.6 在 macOS / Zotero 10.0.4 / 坚果云经典完整本地同步环境完成跨设备、Reader、重启和 Data Sync 验证；这些旧版验收不是 0.2.2.8 新增逻辑的独立验收。没有全面验证 Windows、Linux、其他云盘、所有出版商或其他 Zotero 版本。
 
 - 安装前备份 Zotero 数据与附件，用少量可丢弃文件先测试。
-- 每台电脑登录同一 Zotero 账号、同步同一独立云盘文件夹，分别设置本机的 Linked Attachment Base Directory。
+- 每台电脑登录同一 Zotero 账号、通过文件同步工具同步同一独立 PDF 文件夹，分别设置本机的 Linked Attachment Base Directory。
 - Data Sync 开；此方案在个人库关闭 Zotero 附件文件同步 / WebDAV。已有 stored 附件不会因此被迁移，也不再由该关闭的文件同步方案上传。
 - **不要把 Zotero 数据目录或 sqlite 放到云盘。** 云盘同步不是备份。
 - PDF 必须完整下载到每台电脑。文献同步完成不代表 PDF 已到达。
@@ -39,7 +48,7 @@
 
 ## 快速开始
 
-1. 阅读[完整教程](docs/USAGE.zh-CN.md)，在云盘客户端建立独立一级同步文件夹 `ZoteroIncrementalSync`，里面建 `PDFs`。
+1. 阅读[完整教程](docs/USAGE.zh-CN.md)，使用 Syncthing 或自行配置的云盘建立独立同步文件夹 `ZoteroIncrementalSync`，里面建 `PDFs`。
 2. 各电脑设置 Zotero → Settings → Advanced → Files and Folders → Linked Attachment Base Directory 为各自完整本地的 `PDFs` 目录。不要更改 Data Directory。
 3. 从 Releases 下载 `.xpi`，在 Zotero → Tools → Plugins 窗口拖入安装。重启 Zotero。
 4. 先导入一份测试 PDF，等待 Zotero Data Sync 与云盘同步；到另一台电脑确认相同附件可用 Reader 打开。
