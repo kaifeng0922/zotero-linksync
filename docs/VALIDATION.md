@@ -11,3 +11,7 @@ The release target is 0.2.2.8, not 0.2.2.6. Its source was read from the develop
 Public packaging changes only manifest homepage and removes the placeholder update URL. JavaScript remains byte-identical to the currently installed 0.2.2.8 XPI. The repackaged XPI has a different checksum and has not been reinstalled into the production library during publication. No historical attachments were operated on.
 
 Known limitation: transport state and some lifecycle identity observability are diagnostic heuristics, not end-to-end proof. Other plugins, library modes and future Zotero internal changes remain unverified.
+
+## Current transport and platform scope
+
+Project records dated 2026-10-01 identify Syncthing as the production PDF transport, with Tailscale used for cross-network connectivity or a fallback path; Nutstore was retired from that production chain. The 0.2.2.7 PRIMARY/B workflow was reported validated. The developer reports a two-Mac workflow; Windows and Linux are unvalidated. The retrieved 0.2.2.8 instructions specify targeted tests but do not supply a complete per-test result, so this document does not claim independent completion of those tests.
