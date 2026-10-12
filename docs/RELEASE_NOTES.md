@@ -9,3 +9,5 @@ Download the attached `.xpi` and SHA256SUMS.txt. Read the README and backup/setu
 Connector behavior changes while enabled; see Safety and known limitations. Transport SYNCED is not cloud delivery confirmation. No automatic update endpoint is configured. This is a third-party plugin, not an official Zotero product.
 
 Includes resilient ItemTree drag hooks and eligible standalone local PDF imports. This package cleans up manifest homepage/update metadata only; JavaScript is unchanged from the current installed 0.2.2.8 XPI. The production installation was not modified by publishing.
+
+Current personal setup: Syncthing synchronizes PDFs between two Macs; Tailscale provides network connectivity, not folder synchronization. This setup does not require purchasing cloud storage for PDF transport. Nutstore was used in earlier tests. Windows and Linux remain unvalidated. See the current README for updated setup choices.
