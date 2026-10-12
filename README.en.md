@@ -6,6 +6,14 @@
 
 Kai's first small plugin, developed with Codex assistance to solve a personal multi-computer reading workflow. This is a third-party project, not an official Zotero product.
 
+## Current setup and scope
+
+I currently synchronize PDFs between two Macs with **Syncthing**, using **Tailscale for cross-network connectivity or a fallback network path**. Nutstore was used in earlier tests and is no longer part of the production sync setup. Tailscale does not itself synchronize folders and is not required by LinkSync.
+
+This device-to-device PDF synchronization setup does not require a cloud-storage subscription; capacity remains limited by device disk space. LinkSync is not tied to one cloud provider. Other tools providing fully local synchronized folders are candidates requiring compatibility tests.
+
+**Testing is limited to a two-Mac workflow. Windows and Linux have not been validated.** This does not constitute fresh independent acceptance of every new 0.2.2.8 hook.
+
 ## Use cases
 
 Switch between home, office and laptop while keeping new PDFs in a dedicated cloud-synced folder. Use Zotero Data Sync for records and a separate service for files, without putting Zotero's data directory in cloud storage.
@@ -15,8 +23,8 @@ Supported workflows in editable My Library: plain drag of external local PDFs on
 ## Setup
 
 1. Back up your library and PDFs. Start with disposable test files.
-2. Create a dedicated top-level sync folder, e.g. `ZoteroIncrementalSync`, using your cloud client. Create `PDFs` inside it. Sync that folder, not the whole cloud account or Zotero data directory.
-3. On every computer, sync the same cloud folder, keep PDFs fully downloaded, sign in to the same Zotero library, and set Settings → Advanced → Files and Folders → Linked Attachment Base Directory to that computer's `PDFs` folder. Absolute paths can differ; relative layout must match.
+2. Create a dedicated top-level sync folder, e.g. `ZoteroIncrementalSync`, using Syncthing or a separately configured cloud client. Create `PDFs` inside it. Sync that folder, not the whole cloud account or Zotero data directory.
+3. On every computer, synchronize the same dedicated PDF folder, keep PDFs fully downloaded, sign in to the same Zotero library, and set Settings → Advanced → Files and Folders → Linked Attachment Base Directory to that computer's `PDFs` folder. Absolute paths can differ; relative layout must match.
 4. Keep Data Sync enabled. This workflow uses Zotero personal-library attachment File Sync / WebDAV disabled. Existing stored attachments are not migrated or uploaded by LinkSync.
 5. Download the `.xpi` from Releases, drag it onto Tools → Plugins, and restart Zotero. Perform one test import, wait for both sync systems, and open the same attachment on another machine.
 
