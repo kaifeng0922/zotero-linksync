@@ -1,0 +1,37 @@
+# Zotero LinkSync
+
+**New PDFs become linked attachments from birth: Zotero syncs library data; an independently synced local folder carries the PDF files.**
+
+[中文](README.md) · [Download](https://github.com/kaifeng0922/zotero-linksync/releases) · [Issues](https://github.com/kaifeng0922/zotero-linksync/issues)
+
+Kai's first small plugin, developed with Codex assistance to solve a personal multi-computer reading workflow. This is a third-party project, not an official Zotero product.
+
+## Use cases
+
+Switch between home, office and laptop while keeping new PDFs in a dedicated cloud-synced folder. Use Zotero Data Sync for records and a separate service for files, without putting Zotero's data directory in cloud storage.
+
+Supported workflows in editable My Library: plain drag of external local PDFs onto an existing parent or blank item-list area; article-page Connector saves with one primary PDF candidate; compatible direct-PDF Connector stream saves. Success creates linkMode=2 with `attachments:<key>/<filename>` pointing to `PDFs/<key>/<filename>`. Local drag sources are copied, not moved.
+
+## Setup
+
+1. Back up your library and PDFs. Start with disposable test files.
+2. Create a dedicated top-level sync folder, e.g. `ZoteroIncrementalSync`, using your cloud client. Create `PDFs` inside it. Sync that folder, not the whole cloud account or Zotero data directory.
+3. On every computer, sync the same cloud folder, keep PDFs fully downloaded, sign in to the same Zotero library, and set Settings → Advanced → Files and Folders → Linked Attachment Base Directory to that computer's `PDFs` folder. Absolute paths can differ; relative layout must match.
+4. Keep Data Sync enabled. This workflow uses Zotero personal-library attachment File Sync / WebDAV disabled. Existing stored attachments are not migrated or uploaded by LinkSync.
+5. Download the `.xpi` from Releases, drag it onto Tools → Plugins, and restart Zotero. Perform one test import, wait for both sync systems, and open the same attachment on another machine.
+
+## Important limitations
+
+Early release 0.2.2.6 (rc6). Developer acceptance covered macOS, Zotero 10.0.4 and Nutstore classic full-local synchronization, including cross-device linked paths, SHA-256, Reader, restart and Data Sync. Other operating systems, Zotero versions, cloud services and all publisher sites are not comprehensively tested.
+
+- No historical migration, deduplication or missing-file repair. Group libraries and mobile attachment access are not supported targets.
+- Plugin startup temporarily sets the global `downloadAssociatedFiles` preference to false. Normal shutdown/disable/uninstall attempts to restore its original value. Unsupported Connector targets can still be affected by this global preference.
+- Metadata may save without a PDF if acquisition fails. Login, CAPTCHA, download permissions and website changes can affect results. No paywall bypass.
+- Internal API hooks may conflict with other plugins or break after a Zotero update. No automatic updates are configured in this release.
+- Transport `SYNCED` is a Nutstore client-log freshness heuristic, not proof of upload or remote receipt.
+- Local logs can contain file paths, item keys and source URLs with signed query parameters. Redact before sharing.
+- Cloud sync is not a backup. Removing the plugin does not convert linked attachments or remove the PDFs. Preserve the base path and files.
+
+See [Safety](docs/SAFETY.md), [Validation](docs/VALIDATION.md), and [Changelog](CHANGELOG.md). Build with Python 3: `python3 scripts/build.py`. MIT licensed; no Zotero distribution or article PDFs are included.
+
+Official references: [plugins](https://www.zotero.org/support/plugins), [attachments](https://www.zotero.org/support/attaching_files), [sync](https://www.zotero.org/support/sync).

@@ -1,0 +1,7 @@
+dist/
+__pycache__/
+.DS_Store
+_logs/
+PDFs/
+*.sqlite*
+*.pdf

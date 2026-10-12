@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Zotero LinkSync",
+  "version": "0.2.2.6",
+  "description": "Save new PDFs as linked Zotero attachments for an independently synced local folder. Early release for Zotero 10.",
+  "author": "Kai",
+  "homepage_url": "https://github.com/kaifeng0922/zotero-linksync",
+  "applications": {
+    "zotero": {
+      "id": "zotero-linksync@example.com",
+      "strict_min_version": "10.0",
+      "strict_max_version": "10.0.*"
+    }
+  }
+}
